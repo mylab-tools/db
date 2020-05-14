@@ -10,13 +10,30 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="Moq" Version="4.14.1" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="config-classic.json">
+    <ProjectReference Include="..\MyLab.Db\MyLab.Db.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="config\named-detailed.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="config\named-simple.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="config\default-simple.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="config\default-detailed.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="config\classic.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

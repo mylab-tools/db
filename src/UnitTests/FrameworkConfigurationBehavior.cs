@@ -11,14 +11,29 @@ namespace UnitTests
         {
             //Arrange
             var config = new ConfigurationBuilder()
-                .AddJsonFile("config-classic.json")
+                .AddJsonFile("config\\classic.json")
                 .Build();
 
             //Act
             var cs = config.GetConnectionString("Default");
 
             //Assert
-            Assert.Equal("connection-string", cs);
+            Assert.Equal("foo", cs);
+        }
+
+        [Fact]
+        public void ShouldProvideNullIfConnectionStringNotFound()
+        {
+            //Arrange
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("config\\classic.json")
+                .Build();
+
+            //Act
+            var cs = config.GetConnectionString("not-exists");
+
+            //Assert
+            Assert.Null(cs);
         }
     }
 }
