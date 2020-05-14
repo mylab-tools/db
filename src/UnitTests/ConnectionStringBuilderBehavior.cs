@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using MyLab.Db;
+﻿using MyLab.Db;
 using Xunit;
 
 namespace UnitTests

@@ -7,7 +7,7 @@ using Xunit;
 
 namespace UnitTests
 {
-    public class ConnectionStringProviderBehavior
+    public class DefaultConnectionStringProviderBehavior
     {
         [Fact]
         public void ShouldProvideClassicDefaultConnectionString()
@@ -75,8 +75,8 @@ namespace UnitTests
             Assert.Equal("baz1;User=foo1;Password=bar1", namedCs);
         }
 
-        ConnectionStringProvider CreateProvider(string filename) =>
-            new ConnectionStringProvider(new ConfigurationBuilder()
+        DefaultConnectionStringProvider CreateProvider(string filename) =>
+            new DefaultConnectionStringProvider(new ConfigurationBuilder()
                 .AddJsonFile("config\\" + filename)
                 .Build());
     }

@@ -3,18 +3,23 @@ using Microsoft.Extensions.Configuration;
 
 namespace MyLab.Db
 {
-    class ConnectionStringProvider
+    public interface IConnectionStringProvider
+    {
+        string GetConnectionString(string name = null);
+    }
+
+    class DefaultConnectionStringProvider : IConnectionStringProvider
     {
         public const string ClassicDefaultCsName = "Default";
         public const string CsSectionName = "DB";
         public const string CsNodeName = "ConnectionString";
 
-        private readonly IConfigurationRoot _config;
+        private readonly IConfiguration _config;
 
         /// <summary>
-        /// Initializes a new instance of <see cref="ConnectionStringProvider"/>
+        /// Initializes a new instance of <see cref="DefaultConnectionStringProvider"/>
         /// </summary>
-        public ConnectionStringProvider(IConfigurationRoot config)
+        public DefaultConnectionStringProvider(IConfiguration config)
         {
             _config = config ?? throw new ArgumentNullException(nameof(config));
         }
