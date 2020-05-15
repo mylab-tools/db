@@ -45,8 +45,7 @@ public class TestService
         await using var dc = dbManager.Connect();
         var res = await dc
             .GetTable<TestDbEntity>()
-            .Where(e => e.Id == id)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(e => e.Id == id);
     }
 }
 ```
