@@ -1,0 +1,7 @@
+{
+  "DB": {
+    "User": "foo",
+    "Password": "bar",
+    "ConnectionString": "baz;User={User};Password={Password}"
+  }
+}

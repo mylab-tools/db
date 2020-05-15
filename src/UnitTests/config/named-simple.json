@@ -1,0 +1,6 @@
+{
+  "DB": {
+    "Cs1": "baz1;User=foo1;Password=bar1",
+    "Cs2": "baz2;User=foo2;Password=bar2"
+  }
+}

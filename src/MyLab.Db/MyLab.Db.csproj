@@ -2,6 +2,20 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Authors>Andrey O.</Authors>
+    <Copyright>Copyright (c) 2019 Andrey Osintsev &lt;ozzy.ext@gmail.com&gt;</Copyright>
+    <RepositoryUrl>https://github.com/ozzy-ext-mylab/db.git</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/ozzy-ext-mylab/db</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="linq2db" Version="2.9.8" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.4" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.4" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.4" />
+  </ItemGroup>
 
 </Project>

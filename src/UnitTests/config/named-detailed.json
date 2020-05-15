@@ -1,0 +1,14 @@
+{
+  "DB": {
+    "Cs1": {
+      "User": "foo1",
+      "Password": "bar1",
+      "ConnectionString": "baz1;User={User};Password={Password}"
+    },
+    "Cs2": {
+      "User": "foo2",
+      "Password": "bar2",
+      "ConnectionString": "baz2;User={User};Password={Password}"
+    }
+  }
+}
