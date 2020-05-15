@@ -34,8 +34,7 @@ namespace UnitTests
             await using var dc = dbManager.Connect();
             var res = await dc
                     .GetTable<TestDbEntity>()
-                    .Where(e => e.Id == 0)
-                    .FirstOrDefaultAsync();
+                    .FirstOrDefaultAsync(e => e.Id == 0);
 
             //Assert
             Assert.Equal("foo", res.Value);
