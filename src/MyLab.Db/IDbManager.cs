@@ -1,4 +1,5 @@
-﻿using LinqToDB.Async;
+﻿using LinqToDB;
+using LinqToDB.Async;
 using LinqToDB.Data;
 using LinqToDB.SqlQuery;
 
@@ -29,6 +30,14 @@ namespace MyLab.Db
             var cs = _connectionStringProvider.GetConnectionString(connectionStringName);
 
             return new DataConnection(dbProvider, cs);
+        }
+
+        public DataContext Perform(string connectionStringName = null)
+        {
+            var dbProvider = _providerSource.Provide(connectionStringName);
+            var cs = _connectionStringProvider.GetConnectionString(connectionStringName);
+
+            return new DataContext(dbProvider, cs);
         }
     }
 }
