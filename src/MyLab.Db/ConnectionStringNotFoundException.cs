@@ -1,11 +1,12 @@
 ﻿using System.Data.Common;
+using LinqToDB.SqlQuery;
 
 namespace MyLab.Db
 {
     /// <summary>
     /// Throw when connection string not found in configuration
     /// </summary>
-    public class ConnectionStringNotFoundException : DbException
+    public class ConnectionStringNotFoundException : SqlException
     {
         public string ConnectionStringName { get; }
 

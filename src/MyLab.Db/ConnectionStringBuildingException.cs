@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Data.Common;
+using LinqToDB.SqlQuery;
 
 namespace MyLab.Db
 {
     /// <summary>
     /// Throw when connection string building error
     /// </summary>
-    public class ConnectionStringBuildingException : DbException
+    public class ConnectionStringBuildingException : SqlException
     {
         /// <summary>
         /// Initializes a new instance of <see cref="ConnectionStringBuildingException"/>
