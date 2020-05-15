@@ -21,10 +21,8 @@ namespace UnitTests
             IDbManager dbManager = new DefaultDbManager(csProvider, dbProviderSource);
 
             //Act
-            var res = await dbManager.FirstOrDefaultAsync(async dc =>
-            {
-                return await dc.QueryToArrayAsync<string>("select \"foo\";");
-            });
+            await using var dc = dbManager.Connect();
+            var res = (await dc.QueryToArrayAsync<string>("select \"foo\";")).FirstOrDefault();
 
             //Assert
             Assert.Equal("foo", res);

@@ -9,7 +9,7 @@ namespace MyLab.Db
     /// </summary>
     public interface IDbManager
     {
-        DataConnection Connect(string connectionStringName);
+        DataConnection Connect(string connectionStringName = null);
     }
 
     class DefaultDbManager : IDbManager
@@ -23,7 +23,7 @@ namespace MyLab.Db
             _providerSource = providerSource;
         }
 
-        public DataConnection Connect(string connectionStringName)
+        public DataConnection Connect(string connectionStringName = null)
         {
             var dbProvider = _providerSource.Provide(connectionStringName);
             var cs = _connectionStringProvider.GetConnectionString(connectionStringName);
