@@ -35,7 +35,7 @@ public class TestService
 {
     IDbManager _db;
     
-	public TestService(IDbManager db)
+    public TestService(IDbManager db)
     {
         _db = db;
     }
