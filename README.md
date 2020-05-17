@@ -10,7 +10,7 @@
 
 ```json
 {
-  "DB": "Data Source=c:\mydb.db;Version=3;"
+  "DB": "Data Source=c:\\mydb.db;Version=3;"
 }
 ```
 
@@ -35,7 +35,7 @@ public class TestService
 {
     IDbManager _db;
     
-	public TestService(IDbManager db)
+    public TestService(IDbManager db)
     {
         _db = db;
     }
@@ -45,8 +45,7 @@ public class TestService
         await using var dc = dbManager.Connect();
         var res = await dc
             .GetTable<TestDbEntity>()
-            .Where(e => e.Id == id)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync(e => e.Id == id);
     }
 }
 ```
@@ -61,7 +60,7 @@ public class TestService
 
 ```json
 {
-  "DB": "Data Source=c:\mydb.db;Version=3;"
+  "DB": "Data Source=c:\\mydb.db;Version=3;"
 }
 ```
 
@@ -72,8 +71,8 @@ public class TestService
 ```json
 {
   "DB": {
-    "Cs1": "Data Source=c:\mydb-1.db;Version=3;",
-    "Cs2": "Data Source=c:\mydb-2.db;Version=3;"
+    "Cs1": "Data Source=c:\\mydb-1.db;Version=3;",
+    "Cs2": "Data Source=c:\\mydb-2.db;Version=3;"
   }
 }
 ```
@@ -98,7 +97,7 @@ public class TestService
 
 Пример именованных строк подключения:
 
- ```C#
+```json
 {
   "DB": {
     "Cs1": {
@@ -124,8 +123,8 @@ public class TestService
 
 ```json
 "ConnectionStrings": {
-    "Default": "Data Source=c:\mydb-1.db;Version=3;",
-    "Custom": "Data Source=c:\mydb-2.db;Version=3;"
+    "Default": "Data Source=c:\\mydb-1.db;Version=3;",
+    "Custom": "Data Source=c:\\mydb-2.db;Version=3;"
   }
 ```
 
