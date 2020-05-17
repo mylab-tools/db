@@ -26,18 +26,38 @@ namespace UnitTests
         public async Task ShouldUseConnection()
         {
             //Arrange
-            var csProvider = new TestSingleCsProvider(_connectionString);
-            var dbProviderSource = new SingleDbProviderSource(new SQLiteDataProvider());
-            IDbManager dbManager = new DefaultDbManager(csProvider, dbProviderSource);
+            IDbManager dbManager = CreateDbManager();
 
             //Act
-            await using var dc = dbManager.Connect();
+            await using var dc = dbManager.Use();
             var res = await dc
                     .GetTable<TestDbEntity>()
                     .FirstOrDefaultAsync(e => e.Id == 0);
 
             //Assert
             Assert.Equal("foo", res.Value);
+        }
+
+        [Fact]
+        public async Task ShouldDoOnceRequest()
+        {
+            //Arrange
+            IDbManager dbManager = CreateDbManager();
+
+            //Act
+            var res = await dbManager.DoOnce()
+                .GetTable<TestDbEntity>()
+                .FirstOrDefaultAsync(e => e.Id == 0);
+
+            //Assert
+            Assert.Equal("foo", res.Value);
+        }
+
+        IDbManager CreateDbManager()
+        {
+            var csProvider = new TestSingleCsProvider(_connectionString);
+            var dbProviderSource = new SingleDbProviderSource(new SQLiteDataProvider());
+            return new DefaultDbManager(csProvider, dbProviderSource);
         }
     }
 }

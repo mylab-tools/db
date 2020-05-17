@@ -175,8 +175,6 @@ public class Startup
 
 Инструменты БД доступны через интерфейс менеджера БД `IDbManager`. Этот менеджер можно получить в конструкторе сервиса через DI контейнер. 
 
-Основной задачей данного менеджера является предоставление подключения БД. Подключение создаётся типа из `linq2db`: `LinqToDB.Data.DataConnection`.
-
 Пример использования менеджера:
 
 ```C#
@@ -191,11 +189,39 @@ public class TestService
     
     public async Task<TestDbEntity> Get(int id)
     {
-        await using var dc = _db.Connect();
-        return await dc
-            .GetTable<TestDbEntity>()
-            .FirstOrDefaultAsync(e => e.Id == id);
+        _db.....
     }
+}
+```
+
+#### Метод `Use`
+
+Основной задачей менеджера `IDbManager` является предоставление подключения БД. Подключение создаётся типа из `linq2db`: `LinqToDB.Data.DataConnection`.
+
+Пример использования метода:
+
+```C#
+public async Task<TestDbEntity> Get(int id)
+{
+    await using var dc = _db.Use();
+    return await dc
+        .GetTable<TestDbEntity>()
+        .FirstOrDefaultAsync(e => e.Id == id);
+}
+```
+
+#### Метод `DoOnce`
+
+Этот метод предоставляет объект контекста выполнения запроса в БД типа `LinqToDB.DataContext`. `DataContext` позволяет выполнить запросы в БД, каждый раз создавая новое подключение. Поэтому не нужно беспокоиться об освобождении ресурсов после выполнения запроса. Это полезно, если нужно сделать один запрос.
+
+Пример использование метода:
+
+```C#
+public async Task<TestDbEntity> Get(int id)
+{
+    return await _db.DoOnce()
+        .GetTable<TestDbEntity>()
+        .FirstOrDefaultAsync(e => e.Id == id);
 }
 ```
 
@@ -212,7 +238,7 @@ public class TestService
 ```C#
 public async Task<TestDbEntity> Get(int id)
 {
-    await using var dc = _db.Connect();
+    await using var dc = _db.Use();
     return await dc
         .GetTable<TestDbEntity>()
         .FirstOrDefaultAsync(e => e.Id == id);
@@ -226,7 +252,7 @@ public async Task<TestDbEntity> Get(int id)
 ```C#
 public async Task<IEnumerable<TestDbEntity>> Get()
 {
-    await using var dc = _db.Connect();
+    await using var dc = _db.Use();
     return await dc
         .GetTable<TestDbEntity>()
         .ToArrayAsync();
@@ -242,7 +268,7 @@ public async Task<IEnumerable<TestDbEntity>> Get()
 ```C#
 public async Task<IEnumerable<TestDbEntity>> Get()
 {
-    await using var dc = _db.Connect();
+    await using var dc = _db.Use();
     return dc
         .GetTable<TestDbEntity>();
 	    //.ToArrayAsync();
