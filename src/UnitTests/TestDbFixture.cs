@@ -12,11 +12,10 @@ namespace UnitTests
 {
     public class TestDbFixture : IDisposable
     {
-        private readonly DataConnection _connection;
         private readonly string _filename;
 
         public ITestOutputHelper Output { get; set; }
-
+        public DataConnection Connection { get; }
         public string ConnectionString { get; }
 
         public TestDbFixture()
@@ -26,8 +25,8 @@ namespace UnitTests
             _filename = $"{Guid.NewGuid():N}.db";
             ConnectionString = $"Data Source={_filename};";
 
-            _connection = new DataConnection(new SQLiteDataProvider(), ConnectionString);
-            _connection.OnTraceConnection += info =>
+            Connection = new DataConnection(new SQLiteDataProvider(), ConnectionString);
+            Connection.OnTraceConnection += info =>
             {
                 if (info.TraceInfoStep == TraceInfoStep.BeforeExecute)
                 {
@@ -36,8 +35,8 @@ namespace UnitTests
                 }
             };
 
-            _connection.CreateTable<TestDbEntity>();
-            _connection.GetTable<TestDbEntity>().Insert(() => new TestDbEntity
+            Connection.CreateTable<TestDbEntity>();
+            Connection.GetTable<TestDbEntity>().Insert(() => new TestDbEntity
                 {
                     Id = 0,
                     Value = "foo"
@@ -46,8 +45,8 @@ namespace UnitTests
 
         public void Dispose()
         {
-            _connection.OnTraceConnection = null;
-            _connection.Dispose();
+            Connection.OnTraceConnection = null;
+            Connection.Dispose();
 
             File.Delete(_filename);
         }

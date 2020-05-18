@@ -113,7 +113,7 @@ public class TestService
     }
   }
 }
- ```
+```
 
 Правил именования тэгов подключения нет. В тэги могут быть вынесены любые части строки подключения.
 
@@ -171,6 +171,8 @@ public class Startup
 ```
 
 ## Использование
+
+### DbManager
 
 Инструменты БД доступны через интерфейс менеджера БД `IDbManager`. Этот менеджер можно получить в конструкторе сервиса через DI контейнер. 
 
@@ -288,3 +290,25 @@ foreach(var itm in var persons = Get().ToList())
 
 Подробнее - [тут](https://github.com/linq2db/linq2db/wiki/Managing-data-connection).
 
+### Автотранзакции
+
+Автотранзакция - это абстракция, определяющаяся как транзакция, которая автоматически фиксируется, если не было отката.
+
+В `MyLab.Db` такой функционал реализуется методом расширения для `DataConnection`: `PerformAutoTransactionAsync`.
+
+Ниже показан пример использования этого метода:
+
+```C#
+await using var dataConn = _db.Use();
+await dataConn.PerformAutoTransactionAsync(dc =>
+{
+    return dc.GetTable<TestDbEntity>().InsertAsync(() => 
+        new TestDbEntity
+        {
+            Id = entId,
+            Value = "foo"
+        });
+});
+```
+
+Откат транзакции осуществляется только в случае, если в процессе выполнения переданного выражения возникает необработанное исключение.
