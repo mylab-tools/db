@@ -9,9 +9,9 @@
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.2.0.1805</AssemblyVersion>
-    <FileVersion>1.2.0.1805</FileVersion>
-    <Version>1.2.0</Version>
+    <AssemblyVersion>1.2.1.0106</AssemblyVersion>
+    <FileVersion>1.2.1.0106</FileVersion>
+    <Version>1.2.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

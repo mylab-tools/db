@@ -20,6 +20,7 @@ namespace MyLab.Db
 
             services.AddSingleton(csProvider);
             services.AddSingleton(dbProviderSource);
+            services.AddSingleton<IDbManager, DefaultDbManager>();
 
             return services;
         }
