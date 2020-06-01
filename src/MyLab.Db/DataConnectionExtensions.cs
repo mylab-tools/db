@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using LinqToDB;
 using LinqToDB.Data;
+using Microsoft.VisualBasic;
 
 namespace MyLab.Db
 {
@@ -28,6 +30,17 @@ namespace MyLab.Db
                 transaction.Rollback();
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Returns queryable source for specified mapping class for current connection, mapped to database table or view.
+        /// </summary>
+        public static ITable<T> Tab<T>(this DataConnection dataConnection)
+            where T: class
+        {
+            if (dataConnection == null) throw new ArgumentNullException(nameof(dataConnection));
+
+            return dataConnection.GetTable<T>();
         }
     }
 }
