@@ -25,7 +25,7 @@ namespace UnitTests
             _filename = $"{Guid.NewGuid():N}.db";
             ConnectionString = $"Data Source={_filename};";
 
-            Connection = new DataConnection(new SQLiteDataProvider(), ConnectionString);
+            Connection = new DataConnection(new SQLiteDataProvider(ProviderName.SQLite), ConnectionString);
             Connection.OnTraceConnection += info =>
             {
                 if (info.TraceInfoStep == TraceInfoStep.BeforeExecute)

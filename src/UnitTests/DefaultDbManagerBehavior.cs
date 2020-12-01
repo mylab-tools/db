@@ -56,7 +56,7 @@ namespace UnitTests
         IDbManager CreateDbManager()
         {
             var csProvider = new TestSingleCsProvider(_connectionString);
-            var dbProviderSource = new SingleDbProviderSource(new SQLiteDataProvider());
+            var dbProviderSource = new SingleDbProviderSource(new SQLiteDataProvider(ProviderName.SQLite));
             return new DefaultDbManager(csProvider, dbProviderSource);
         }
     }

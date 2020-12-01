@@ -25,7 +25,7 @@ namespace UnitTests
                 .AddJsonFile("config\\sqlite.json")
                 .Build();
             var serviceProvider = new ServiceCollection()
-                .AddDbTools(config, new SQLiteDataProvider())
+                .AddDbTools(config, new SQLiteDataProvider(ProviderName.SQLite))
                 .BuildServiceProvider();
 
             var serviceConsumer = ActivatorUtilities.CreateInstance<TestService>(serviceProvider);
