@@ -13,12 +13,12 @@ namespace MyLab.Db
     {
         public static IServiceCollection AddDbTools<TDbProviderSource>(
             this IServiceCollection services,
-            IConnectionStringProvider csProvider)
+            IConfiguration configuration)
         where TDbProviderSource : class, IDbProviderSource
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
 
-            services.AddSingleton(csProvider);
+            services.AddSingleton(new DefaultConnectionStringProvider(configuration));
             services.AddSingleton<IDbProviderSource, TDbProviderSource>();
             services.AddSingleton<IDbManager, DefaultDbManager>();
 
