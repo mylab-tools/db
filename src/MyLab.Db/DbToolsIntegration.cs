@@ -1,4 +1,5 @@
 ﻿using System;
+using LinqToDB.Configuration;
 using LinqToDB.DataProvider;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,6 +11,20 @@ namespace MyLab.Db
     /// </summary>
     public static class DbToolsIntegration
     {
+        public static IServiceCollection AddDbTools<TDbProviderSource>(
+            this IServiceCollection services,
+            IConnectionStringProvider csProvider)
+        where TDbProviderSource : class, IDbProviderSource
+        {
+            if (services == null) throw new ArgumentNullException(nameof(services));
+
+            services.AddSingleton(csProvider);
+            services.AddSingleton<IDbProviderSource, TDbProviderSource>();
+            services.AddSingleton<IDbManager, DefaultDbManager>();
+
+            return services;
+        }
+
         public static IServiceCollection AddDbTools(
             this IServiceCollection services,
             IConnectionStringProvider csProvider,
