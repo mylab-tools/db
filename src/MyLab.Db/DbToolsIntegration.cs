@@ -18,7 +18,7 @@ namespace MyLab.Db
         {
             if (services == null) throw new ArgumentNullException(nameof(services));
 
-            services.AddSingleton(new DefaultConnectionStringProvider(configuration));
+            services.AddSingleton<IConnectionStringProvider>(new DefaultConnectionStringProvider(configuration));
             services.AddSingleton<IDbProviderSource, TDbProviderSource>();
             services.AddSingleton<IDbManager, DefaultDbManager>();
 
