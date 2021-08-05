@@ -9,9 +9,9 @@
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.3.3.2807</AssemblyVersion>
-    <FileVersion>1.3.3.2807</FileVersion>
-    <Version>1.3.3</Version>
+    <AssemblyVersion>1.3.5.0508</AssemblyVersion>
+    <FileVersion>1.3.5.0508</FileVersion>
+    <Version>1.3.5</Version>
     <PackageIcon>tools.png</PackageIcon>
     <PackageIconUrl />
   </PropertyGroup>
@@ -21,6 +21,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+    <PackageReference Include="MyLab.Log.Dsl" Version="3.1.2" />
   </ItemGroup>
 
   <ItemGroup>
