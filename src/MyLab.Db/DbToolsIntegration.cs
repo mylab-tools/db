@@ -11,43 +11,91 @@ namespace MyLab.Db
     /// </summary>
     public static class DbToolsIntegration
     {
+        [Obsolete("Use 'AddDbTools<TDbProviderSource>(IServiceCollection)' instead")]
         public static IServiceCollection AddDbTools<TDbProviderSource>(
-            this IServiceCollection services,
+            this IServiceCollection srv,
             IConfiguration configuration)
         where TDbProviderSource : class, IDbProviderSource
         {
-            if (services == null) throw new ArgumentNullException(nameof(services));
+            if (srv == null) throw new ArgumentNullException(nameof(srv));
 
-            services.AddSingleton<IConnectionStringProvider>(new DefaultConnectionStringProvider(configuration));
-            services.AddSingleton<IDbProviderSource, TDbProviderSource>();
-            services.AddSingleton<IDbManager, DefaultDbManager>();
+            srv.AddSingleton<IConnectionStringProvider>(new DefaultConnectionStringProvider(configuration));
+            srv.AddSingleton<IDbProviderSource, TDbProviderSource>();
+            srv.AddSingleton<IDbManager, DefaultDbManager>();
 
-            return services;
+            return srv;
         }
 
+        [Obsolete("Use 'AddDbTools(IServiceCollection, IDbProviderSource)' instead")]
         public static IServiceCollection AddDbTools(
-            this IServiceCollection services,
+            this IServiceCollection srv,
             IConnectionStringProvider csProvider,
             IDbProviderSource dbProviderSource)
         {
-            if (services == null) throw new ArgumentNullException(nameof(services));
+            if (srv == null) throw new ArgumentNullException(nameof(srv));
             if (dbProviderSource == null) throw new ArgumentNullException(nameof(dbProviderSource));
 
-            services.AddSingleton(csProvider);
-            services.AddSingleton(dbProviderSource);
-            services.AddSingleton<IDbManager, DefaultDbManager>();
+            srv.AddSingleton(csProvider);
+            srv.AddSingleton(dbProviderSource);
+            srv.AddSingleton<IDbManager, DefaultDbManager>();
 
-            return services;
+            return srv;
         }
 
+        [Obsolete("Use 'AddDbTools(IServiceCollection, IDataProvider)' instead")]
         public static IServiceCollection AddDbTools(
-            this IServiceCollection services,
+            this IServiceCollection srv,
             IConfiguration configuration,
             IDataProvider defaultDataProvider)
         {
-            return AddDbTools(services,
+            return AddDbTools(srv,
                 new DefaultConnectionStringProvider(configuration),
                 new SingleDbProviderSource(defaultDataProvider));
         }
-    }
+        
+        /// <summary>
+        /// Adds DB tools with specific data provider source
+        /// </summary>
+        public static IServiceCollection AddDbTools<TDbProviderSource>(this IServiceCollection srv)
+            where TDbProviderSource : class, IDbProviderSource
+        {
+            return srv.AddSingleton<IDbProviderSource, TDbProviderSource>()
+                .AddSingleton<IDbManager, DefaultDbManager>();
+        }
+
+        /// <summary>
+        /// Adds DB tools with specific data provider source
+        /// </summary>
+        public static IServiceCollection AddDbTools(this IServiceCollection srv, IDbProviderSource dbProviderSource)
+        {
+            return srv
+                .AddSingleton(dbProviderSource)
+                .AddSingleton<IDbManager, DefaultDbManager>();
+        }
+
+        /// <summary>
+        /// Adds DB tools with specific data provider
+        /// </summary>
+        public static IServiceCollection AddDbTools(this IServiceCollection srv, IDataProvider defaultDataProvider)
+        {
+            return AddDbTools(srv, new SingleDbProviderSource(defaultDataProvider));
+        }
+
+        
+        /// <summary>
+        /// Configure DB tools with default config section "DB"
+        /// </summary>
+        public static IServiceCollection ConfigureDbTools(this IServiceCollection services, IConfiguration configuration)
+        {
+            return services.AddSingleton<IConnectionStringProvider>(new DefaultConnectionStringProvider(configuration));
+        }
+
+        /// <summary>
+        /// Configure DB tools with specified config section name
+        /// </summary>
+        public static IServiceCollection ConfigureDbTools(this IServiceCollection services, IConfiguration configuration, string sectionName)
+        {
+            return services.AddSingleton<IConnectionStringProvider>(new DefaultConnectionStringProvider(configuration, sectionName));
+        }
+}
 }

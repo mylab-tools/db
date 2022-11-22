@@ -23,7 +23,9 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddDbTools(Configuration, new SQLiteDataProvider())
+        services
+            .AddDbTools(new SQLiteDataProvider())
+            .ConfigureDbTools(Configuration);
     }
 }
 ```
@@ -141,7 +143,9 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddDbTools(Configuration, new SQLiteDataProvider())
+        services
+            .AddDbTools(new SQLiteDataProvider())
+            .ConfigureDbTools(Configuration);
     }
 }
 ```
@@ -165,7 +169,9 @@ public class Startup
             { "Cs2", new MySqlDataProvider() }
         };
         
-        services.AddDbTools(Configuration, new MapDbProviderSource(map))
+        services
+            .AddDbTools(new MapDbProviderSource(map))
+            .ConfigureDbTools(Configuration);
     }
 }
 ```

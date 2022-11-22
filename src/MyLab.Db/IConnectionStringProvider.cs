@@ -15,13 +15,15 @@ namespace MyLab.Db
         public const string CsNodeName = "ConnectionString";
 
         private readonly IConfiguration _config;
+        private readonly string _sectionName;
 
         /// <summary>
         /// Initializes a new instance of <see cref="DefaultConnectionStringProvider"/>
         /// </summary>
-        public DefaultConnectionStringProvider(IConfiguration config)
+        public DefaultConnectionStringProvider(IConfiguration config, string sectionName = CsSectionName)
         {
             _config = config ?? throw new ArgumentNullException(nameof(config));
+            _sectionName = sectionName;
         }
 
         public string GetConnectionString(string name = null)
@@ -32,8 +34,8 @@ namespace MyLab.Db
 
             var dbSection = _config.GetSection(
                 name != null 
-                    ? $"{CsSectionName}:{name}"
-                    : CsSectionName);
+                    ? $"{_sectionName}:{name}"
+                    : _sectionName);
 
             if (dbSection.Exists())
             {

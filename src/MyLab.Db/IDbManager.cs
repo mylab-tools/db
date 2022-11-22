@@ -35,7 +35,7 @@ namespace MyLab.Db
         public DefaultDbManager(
             IConnectionStringProvider connectionStringProvider, 
             IDbProviderSource providerSource,
-            ILogger<DefaultDbManager> logger)
+            ILogger<DefaultDbManager> logger = null)
         {
             _connectionStringProvider = connectionStringProvider;
             _providerSource = providerSource;
@@ -56,23 +56,26 @@ namespace MyLab.Db
                 if (ti.TraceLevel == TraceLevel.Error)
                 {
                     logRecord = ti.Exception != null
-                        ? _log.Error("DB error", ti.Exception)
-                        : _log.Error("DB error");
+                        ? _log?.Error("DB error", ti.Exception)
+                        : _log?.Error("DB error");
                 }
                 else
                 {
-                    logRecord = _log.Debug("DB query");
+                    logRecord = _log?.Debug("DB query");
                 }
 
-                if (ti.ExecutionTime.HasValue)
-                    logRecord = logRecord.AndFactIs("ExecutionTime", ti.ExecutionTime);
+                if (logRecord != null)
+                {
+                    if (ti.ExecutionTime.HasValue)
+                        logRecord = logRecord.AndFactIs("ExecutionTime", ti.ExecutionTime);
 
-                if(ti.RecordsAffected.HasValue)
-                    logRecord = logRecord.AndFactIs("RecordsAffected", ti.RecordsAffected);
+                    if (ti.RecordsAffected.HasValue)
+                        logRecord = logRecord.AndFactIs("RecordsAffected", ti.RecordsAffected);
 
-                logRecord
-                    .AndFactIs("SqlText", ti.SqlText)
-                    .Write();
+                    logRecord
+                        .AndFactIs("SqlText", ti.SqlText)
+                        .Write();
+                }
             };
         }
 
