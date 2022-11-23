@@ -97,5 +97,13 @@ namespace MyLab.Db
         {
             return services.AddSingleton<IConnectionStringProvider>(new DefaultConnectionStringProvider(configuration, sectionName));
         }
-}
+
+        /// <summary>
+        /// Configure DB tools with specified connection string provider
+        /// </summary>
+        public static IServiceCollection ConfigureDbTools(this IServiceCollection services, IConnectionStringProvider connectionStringProvider)
+        {
+            return services.AddSingleton(connectionStringProvider);
+        }
+    }
 }

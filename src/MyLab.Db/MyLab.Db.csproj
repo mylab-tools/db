@@ -9,9 +9,9 @@
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.4.5.2211</AssemblyVersion>
-    <FileVersion>1.4.5.2211</FileVersion>
-    <Version>1.4.5</Version>
+    <AssemblyVersion>1.4.6.2311</AssemblyVersion>
+    <FileVersion>1.4.6.2311</FileVersion>
+    <Version>1.4.6</Version>
     <PackageIcon>tools.png</PackageIcon>
     <PackageIconUrl />
   </PropertyGroup>
