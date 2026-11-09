@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using LinqToDB;
-using LinqToDB.Async;
 using LinqToDB.Data;
-using LinqToDB.DataProvider;
-using LinqToDB.DataProvider.SQLite;
+using LinqToDB.Internal.DataProvider.SQLite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyLab.Db;
@@ -25,7 +19,8 @@ namespace UnitTests
                 .AddJsonFile("config\\sqlite.json")
                 .Build();
             var serviceProvider = new ServiceCollection()
-                .AddDbTools(config, new SQLiteDataProvider(ProviderName.SQLite))
+                .AddDbTools(new DefaultSQLiteProvider())
+                .ConfigureDbTools(config)
                 .BuildServiceProvider();
 
             var serviceConsumer = ActivatorUtilities.CreateInstance<TestService>(serviceProvider);

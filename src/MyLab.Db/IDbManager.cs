@@ -1,9 +1,6 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using LinqToDB;
-using LinqToDB.Async;
 using LinqToDB.Data;
-using LinqToDB.SqlQuery;
 using Microsoft.Extensions.Logging;
 using MyLab.Log.Dsl;
 
@@ -28,9 +25,9 @@ namespace MyLab.Db
 
     class DefaultDbManager : IDbManager
     {
-        private readonly IConnectionStringProvider _connectionStringProvider;
-        private readonly IDbProviderSource _providerSource;
-        private IDslLogger _log;
+        readonly IConnectionStringProvider _connectionStringProvider;
+        readonly IDbProviderSource _providerSource;
+        readonly IDslLogger _log;
 
         public DefaultDbManager(
             IConnectionStringProvider connectionStringProvider, 
@@ -44,10 +41,32 @@ namespace MyLab.Db
             InitLogging();
         }
 
-        private void InitLogging()
+        void InitLogging()
         {
             DataConnection.TurnTraceSwitchOn();
-            DataConnection.OnTrace = ti =>
+        }
+
+        public DataConnection Use(string connectionStringName = null)
+        {
+            var dbProvider = _providerSource.Provide(connectionStringName);
+            var cs = _connectionStringProvider.GetConnectionString(connectionStringName);
+            var dOpts = AdviceTracing(new DataOptions().UseConnectionString(dbProvider, cs));
+            
+            return new DataConnection(dOpts);
+        }
+
+        public DataContext DoOnce(string connectionStringName = null)
+        {
+            var dbProvider = _providerSource.Provide(connectionStringName);
+            var cs = _connectionStringProvider.GetConnectionString(connectionStringName);
+            var dOpts = AdviceTracing(new DataOptions().UseConnectionString(dbProvider, cs));
+            
+            return new DataContext(dOpts);
+        }
+
+        DataOptions AdviceTracing(DataOptions dOpt)
+        {
+            return dOpt.UseTracing(ti =>
             {
                 if (ti.TraceInfoStep != TraceInfoStep.AfterExecute)
                     return;
@@ -76,23 +95,7 @@ namespace MyLab.Db
                         .AndFactIs("SqlText", ti.SqlText)
                         .Write();
                 }
-            };
-        }
-
-        public DataConnection Use(string connectionStringName = null)
-        {
-            var dbProvider = _providerSource.Provide(connectionStringName);
-            var cs = _connectionStringProvider.GetConnectionString(connectionStringName);
-
-            return new DataConnection(dbProvider, cs);
-        }
-
-        public DataContext DoOnce(string connectionStringName = null)
-        {
-            var dbProvider = _providerSource.Provide(connectionStringName);
-            var cs = _connectionStringProvider.GetConnectionString(connectionStringName);
-
-            return new DataContext(dbProvider, cs);
+            });
         }
     }
 }
