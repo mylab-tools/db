@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using LinqToDB;
+using LinqToDB.Async;
 using MyLab.Db;
 using Xunit;
 

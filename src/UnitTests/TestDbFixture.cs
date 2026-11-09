@@ -5,6 +5,7 @@ using LinqToDB;
 using LinqToDB.Data;
 using LinqToDB.DataProvider.SQLite;
 using LinqToDB.Mapping;
+using MyLab.Db;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -25,16 +26,18 @@ namespace UnitTests
             _filename = $"{Guid.NewGuid():N}.db";
             ConnectionString = $"Data Source={_filename};";
 
-            Connection = new DataConnection(new SQLiteDataProvider(ProviderName.SQLite), ConnectionString);
-            Connection.OnTraceConnection += info =>
-            {
-                if (info.TraceInfoStep == TraceInfoStep.BeforeExecute)
+            var opts = new DataOptions().UseConnectionString(new DefaultSQLiteProvider(), ConnectionString)
+                .UseTracing(info =>
                 {
-                    Debug.WriteLine(info.SqlText);
-                    Output?.WriteLine(info.SqlText);
-                }
-            };
+                    if (info.TraceInfoStep == TraceInfoStep.BeforeExecute)
+                    {
+                        Debug.WriteLine(info.SqlText);
+                        Output?.WriteLine(info.SqlText);
+                    }
+                });
 
+            Connection = new DataConnection(opts);
+            
             Connection.CreateTable<TestDbEntity>();
             Connection.GetTable<TestDbEntity>().Insert(() => new TestDbEntity
                 {
@@ -45,7 +48,6 @@ namespace UnitTests
 
         public void Dispose()
         {
-            Connection.OnTraceConnection = null;
             Connection.Dispose();
 
             File.Delete(_filename);

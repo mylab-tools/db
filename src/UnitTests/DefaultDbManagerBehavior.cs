@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using LinqToDB;
-using LinqToDB.Data;
-using LinqToDB.DataProvider.SQLite;
+using LinqToDB.Async;
 using MyLab.Db;
 using Xunit;
 using Xunit.Abstractions;
@@ -56,7 +51,7 @@ namespace UnitTests
         IDbManager CreateDbManager()
         {
             var csProvider = new TestSingleCsProvider(_connectionString);
-            var dbProviderSource = new SingleDbProviderSource(new SQLiteDataProvider(ProviderName.SQLite));
+            var dbProviderSource = new SingleDbProviderSource(new DefaultSQLiteProvider());
             return new DefaultDbManager(csProvider, dbProviderSource);
         }
     }

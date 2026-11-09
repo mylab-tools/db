@@ -3,21 +3,21 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Authors>Andrey O.</Authors>
-    <Copyright>Copyright (c) 2022 Andrey Osintsev &lt;ozzy.ext@gmail.com&gt;</Copyright>
+    <Copyright>Copyright (c) 2026 Andrey Osintsev &lt;ozzy.ext@gmail.com&gt;</Copyright>
     <RepositoryUrl>https://github.com/mylab-tools/db.git</RepositoryUrl>
     <PackageProjectUrl>https://github.com/mylab-tools/db</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>1.4.6.2311</AssemblyVersion>
-    <FileVersion>1.4.6.2311</FileVersion>
+    <AssemblyVersion>1.5.6.1011</AssemblyVersion>
+    <FileVersion>1.5.6.2311</FileVersion>
     <Version>1.4.6</Version>
     <PackageIcon>tools.png</PackageIcon>
     <PackageIconUrl />
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="linq2db" Version="3.1.6" />
+    <PackageReference Include="linq2db" Version="6.5.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
