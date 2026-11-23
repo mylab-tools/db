@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using LinqToDB.Data;
+﻿using System.Threading.Tasks;
 using LinqToDB.DataProvider;
 using MyLab.Db;
 using Xunit;
@@ -31,7 +28,7 @@ namespace MyLab.DbTest
         }
 
         /// <summary>
-        /// Data base manager
+        /// Database manager
         /// </summary>
         public IDbManager Manager => _dbManager;
 
