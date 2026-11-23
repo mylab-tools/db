@@ -1,8 +1,7 @@
-using System;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 
-namespace UnitTests
+namespace MyLab.Db.UnitTests
 {
     public class FrameworkConfigurationBehavior
     {

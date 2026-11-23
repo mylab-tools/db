@@ -1,7 +1,6 @@
-﻿using MyLab.Db;
-using Xunit;
+﻿using Xunit;
 
-namespace UnitTests
+namespace MyLab.Db.UnitTests
 {
     public class ConnectionStringBuilderBehavior
     {

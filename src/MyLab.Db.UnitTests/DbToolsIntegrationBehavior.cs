@@ -1,13 +1,10 @@
 ﻿using System.Linq;
-using LinqToDB;
 using LinqToDB.Data;
-using LinqToDB.Internal.DataProvider.SQLite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MyLab.Db;
 using Xunit;
 
-namespace UnitTests
+namespace MyLab.Db.UnitTests
 {
     public class DbToolsIntegrationBehavior
     {

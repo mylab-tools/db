@@ -1,11 +1,10 @@
 ﻿using System.Threading.Tasks;
 using LinqToDB;
 using LinqToDB.Async;
-using MyLab.Db;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace UnitTests
+namespace MyLab.Db.UnitTests
 {
     public class DefaultDbManagerBehavior :IClassFixture<TestDbFixture>
     {

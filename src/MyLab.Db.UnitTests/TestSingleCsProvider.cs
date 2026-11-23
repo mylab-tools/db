@@ -1,6 +1,4 @@
-﻿using MyLab.Db;
-
-namespace UnitTests
+﻿namespace MyLab.Db.UnitTests
 {
     class TestSingleCsProvider : IConnectionStringProvider
     {

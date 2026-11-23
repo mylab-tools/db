@@ -1,14 +1,12 @@
-using System;
 using System.Threading.Tasks;
 using LinqToDB;
 using LinqToDB.Async;
 using LinqToDB.Data;
 using LinqToDB.Mapping;
-using MyLab.DbTest;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace UnitTests
+namespace MyLab.DbTest.UnitTests
 {
     public class TmpDbFixtureBehavior : IClassFixture<TmpDbFixture<TmpDbFixtureBehavior.TestDbInitializer>>
     {

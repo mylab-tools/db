@@ -2,10 +2,9 @@
 using System.Threading.Tasks;
 using LinqToDB;
 using LinqToDB.Async;
-using MyLab.Db;
 using Xunit;
 
-namespace UnitTests
+namespace MyLab.Db.UnitTests
 {
     public class AutoTransactionBehavior : IClassFixture<TestDbFixture>
     {

@@ -3,13 +3,10 @@ using System.Diagnostics;
 using System.IO;
 using LinqToDB;
 using LinqToDB.Data;
-using LinqToDB.DataProvider.SQLite;
 using LinqToDB.Mapping;
-using MyLab.Db;
-using Xunit;
 using Xunit.Abstractions;
 
-namespace UnitTests
+namespace MyLab.Db.UnitTests
 {
     public class TestDbFixture : IDisposable
     {

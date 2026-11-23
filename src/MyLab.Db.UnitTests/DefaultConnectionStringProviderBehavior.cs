@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Extensions.Configuration;
-using MyLab.Db;
+﻿using Microsoft.Extensions.Configuration;
 using Xunit;
 
-namespace UnitTests
+namespace MyLab.Db.UnitTests
 {
     public class DefaultConnectionStringProviderBehavior
     {
